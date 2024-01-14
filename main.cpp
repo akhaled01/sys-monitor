@@ -1,19 +1,5 @@
 #include "header.h"
-#include <SDL.h>
-
-/*
-NOTE : You are free to change the code as you wish, the main objective is to make the
-       application work and pass the audit.
-
-       It will be provided the main function with the following functions :
-
-       - `void systemWindow(const char *id, ImVec2 size, ImVec2 position)`
-            This function will draw the system window on your screen
-       - `void memoryProcessesWindow(const char *id, ImVec2 size, ImVec2 position)`
-            This function will draw the memory and processes window on your screen
-       - `void networkWindow(const char *id, ImVec2 size, ImVec2 position)`
-            This function will draw the network window on your screen
-*/
+#include <SDL2/SDL.h>
 
 // About Desktop OpenGL function loaders:
 //  Modern desktop OpenGL doesn't have a standard portable header file to load OpenGL function pointers.
@@ -120,7 +106,8 @@ int main(int, char **)
     glbinding::Binding::initialize();
 #elif defined(IMGUI_IMPL_OPENGL_LOADER_GLBINDING3)
     bool err = false;
-    glbinding::initialize([](const char *name) { return (glbinding::ProcAddress)SDL_GL_GetProcAddress(name); });
+    glbinding::initialize([](const char *name)
+                          { return (glbinding::ProcAddress)SDL_GL_GetProcAddress(name); });
 #else
     bool err = false; // If you use IMGUI_IMPL_OPENGL_LOADER_CUSTOM, your loader is likely to requires some form of initialization.
 #endif
